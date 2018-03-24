@@ -1,6 +1,5 @@
 package uk.ac.manchester.cs.iam.litreviewtool.csv;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import com.univocity.parsers.common.processor.BeanListProcessor;
 import com.univocity.parsers.common.processor.BeanWriterProcessor;
 import com.univocity.parsers.csv.CsvParser;
@@ -53,4 +52,34 @@ public class CsvParse {
         writer.flush();
         writer.close();
     }
+
+    public static List<PaperOut> getPreviouslySaved(String orgFileName) throws IllegalStateException {
+        BeanListProcessor<PaperOut> rowProcessor = new BeanListProcessor<>(PaperOut.class);
+        CsvParserSettings parserSettings = new CsvParserSettings();
+        parserSettings.setProcessor(rowProcessor);
+        parserSettings.setHeaderExtractionEnabled(true);
+
+        CsvParser parser = new CsvParser(parserSettings);
+        try {
+            parser.parse(new InputStreamReader(new FileInputStream("results_" + orgFileName + ".csv")));
+        } catch (FileNotFoundException e) {
+            throw new IllegalStateException("Unable to read input", e);
+        }
+
+        return rowProcessor.getBeans();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

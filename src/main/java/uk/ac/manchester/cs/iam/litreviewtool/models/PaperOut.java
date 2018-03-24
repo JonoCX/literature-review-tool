@@ -3,7 +3,9 @@ package uk.ac.manchester.cs.iam.litreviewtool.models;
 import com.univocity.parsers.annotations.Parsed;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 /**
  * @author Jonathan Carlton
@@ -26,6 +28,17 @@ public class PaperOut implements Serializable {
         this.abs = abs;
         this.keywords = keywords;
         this.decisionMade = decisionMade;
+    }
+
+    public static PaperOut valueOf(Paper paper, Instant now) {
+        return new PaperOut(
+                paper.getTitle(),
+                paper.getAuthor(),
+                paper.getYear(),
+                paper.getAbs(),
+                paper.getKeywords(),
+                LocalDateTime.ofInstant(now, ZoneId.systemDefault())
+        );
     }
 
     @Override

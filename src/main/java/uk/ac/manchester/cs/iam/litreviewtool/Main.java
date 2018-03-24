@@ -5,9 +5,6 @@ import uk.ac.manchester.cs.iam.litreviewtool.csv.CsvParse;
 import uk.ac.manchester.cs.iam.litreviewtool.models.Paper;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * Hello world!
@@ -15,8 +12,8 @@ import java.util.regex.Pattern;
 public class Main {
     public static void main(String[] args) {
         Options options = new Options();
-        options.addOption("f", "file",  true, "location of the csv file on the system");
-        options.addOption("r", "resume", false, "resume the processing");
+        options.addOption("file",  true, "location of the csv file on the system");
+        options.addOption("resume", false, "resume the processing");
 
         String header = "The list of accepted program arguments";
         String footer = "Any further issues, report them to the author of the system";
@@ -30,7 +27,8 @@ public class Main {
             if (cli.hasOption("help") || cli.getArgList().isEmpty()) {
                 helpFormatter.printHelp("literaturereviewtool", header, options, footer, true);
             }
-            else if (cli.hasOption("file") && !(cli.hasOption("resume"))) {
+
+            if (cli.hasOption("file") && !(cli.hasOption("resume"))) {
                 // new session
                 String fileLoc = cli.getOptionValue("file");
 
@@ -39,13 +37,19 @@ public class Main {
                 }
 
                 // run
+                Runner run = new Runner(fileLoc, false);
+                run.run();
             }
-            else if (cli.hasOption("file") && cli.hasOption("resume")) {
+
+            if (cli.hasOption("file") && cli.hasOption("resume")) {
                 // resume session
             }
 
         } catch (ParseException e) {
-            System.out.println("Parsing failed. Reason: " + e.getMessage());
+            System.err.println("Parsing failed. Reason: " + e.getMessage());
+        } catch (Exception ee) {
+            System.err.println("Something went wrong. Reason: " + ee.getMessage());
+            ee.printStackTrace();
         }
 
 //        String file = "E:\\Dropbox (The University of Manchester)\\shared-phd-folder\\literature-review-data\\science-direct-data.csv";

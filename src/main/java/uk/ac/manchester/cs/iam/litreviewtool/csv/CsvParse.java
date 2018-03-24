@@ -33,14 +33,11 @@ public class CsvParse {
         return rowProcessor.getBeans();
     }
 
-    private static final String[] OUT_HEADERS = {};
-
     public static void resultsOut(List<PaperOut> papers, String orgFileName) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("results_" + orgFileName + ".csv"));
 
         CsvWriterSettings writerSettings = new CsvWriterSettings();
         writerSettings.setRowWriterProcessor(new BeanWriterProcessor<>(PaperOut.class));
-        writerSettings.setHeaders(OUT_HEADERS);
 
         CsvWriter writer = new CsvWriter(bufferedWriter, writerSettings);
         writer.writeHeaders();

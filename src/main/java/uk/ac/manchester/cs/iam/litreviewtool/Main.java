@@ -49,7 +49,6 @@ public class Main {
             System.err.println("Parsing failed. Reason: " + e.getMessage());
         } catch (Exception ee) {
             System.err.println("Something went wrong. Reason: " + ee.getMessage());
-            ee.printStackTrace();
         }
 
 //        String file = "E:\\Dropbox (The University of Manchester)\\shared-phd-folder\\literature-review-data\\science-direct-data.csv";

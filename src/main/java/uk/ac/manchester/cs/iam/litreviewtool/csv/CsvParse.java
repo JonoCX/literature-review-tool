@@ -1,15 +1,17 @@
 package uk.ac.manchester.cs.iam.litreviewtool.csv;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import com.univocity.parsers.common.processor.BeanListProcessor;
+import com.univocity.parsers.common.processor.BeanWriterProcessor;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
+import com.univocity.parsers.csv.CsvWriter;
+import com.univocity.parsers.csv.CsvWriterSettings;
 import uk.ac.manchester.cs.iam.litreviewtool.models.Paper;
+import uk.ac.manchester.cs.iam.litreviewtool.models.PaperOut;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author Jonathan Carlton
@@ -30,5 +32,25 @@ public class CsvParse {
         }
 
         return rowProcessor.getBeans();
+    }
+
+    private static final String[] OUT_HEADERS = {};
+
+    public static void resultsOut(List<PaperOut> papers, String orgFileName) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("results_" + orgFileName + ".csv"));
+
+        CsvWriterSettings writerSettings = new CsvWriterSettings();
+        writerSettings.setRowWriterProcessor(new BeanWriterProcessor<>(PaperOut.class));
+        writerSettings.setHeaders(OUT_HEADERS);
+
+        CsvWriter writer = new CsvWriter(bufferedWriter, writerSettings);
+        writer.writeHeaders();
+
+        for (PaperOut po : papers) {
+            writer.processRecord(po);
+        }
+
+        writer.flush();
+        writer.close();
     }
 }

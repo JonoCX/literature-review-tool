@@ -10,19 +10,19 @@ import java.io.Serializable;
  */
 public class Paper implements Serializable {
 
-    @LowerCase @Parsed(field = "title")
+    @Parsed(field = "title")
     private String title;
 
-    @LowerCase @Parsed(field = "authors")
+    @Parsed(field = "authors")
     private String author;
 
     @Parsed(field = "year")
     private String year;
 
-    @LowerCase @Parsed(field = "abstract")
+    @Parsed(field = "abstract")
     private String abs;
 
-    @LowerCase @Parsed(field = "keywords")
+    @Parsed(field = "keywords")
     private String keywords;
 
     public Paper() { }

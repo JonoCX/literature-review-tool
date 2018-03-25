@@ -1,7 +1,7 @@
 # Systematic Literature Review Tool
 > Short blurb about what your product does.
 
-[![Build Status][travis-image]][travis-url]
+[![Build Status](https://travis-ci.org/JonoCX/literature-review-tool.svg?branch=master)](https://travis-ci.org/JonoCX/literature-review-tool)
 
 One to two paragraph statement about your product and what it does.
 

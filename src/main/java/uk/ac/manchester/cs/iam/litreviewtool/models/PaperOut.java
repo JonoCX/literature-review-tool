@@ -1,11 +1,17 @@
 package uk.ac.manchester.cs.iam.litreviewtool.models;
 
+import com.univocity.parsers.annotations.Convert;
+import com.univocity.parsers.annotations.Format;
 import com.univocity.parsers.annotations.Parsed;
+import uk.ac.manchester.cs.iam.litreviewtool.csv.DateConversion;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 
 /**
  * @author Jonathan Carlton
@@ -17,11 +23,14 @@ public class PaperOut implements Serializable  {
     @Parsed(field = "year") private String year;
     @Parsed(field = "abstract") private String abs;
     @Parsed(field = "keywords") private String keywords;
-    @Parsed(field = "decisionMade") private LocalDateTime decisionMade;
+
+    @Convert(conversionClass = DateConversion.class, args = "yyyy-MM-dd HH:mm")
+    @Parsed(field = "decisionMade")
+    private Date decisionMade;
 
     public PaperOut() { }
 
-    public PaperOut(String title, String author, String year, String abs, String keywords, LocalDateTime decisionMade) {
+    public PaperOut(String title, String author, String year, String abs, String keywords, Date decisionMade) {
         this.title = title;
         this.author = author;
         this.year = year;
@@ -30,14 +39,16 @@ public class PaperOut implements Serializable  {
         this.decisionMade = decisionMade;
     }
 
-    public static PaperOut valueOf(Paper paper, Instant now) {
+    private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    public static PaperOut valueOf(Paper paper, String now) throws ParseException {
         return new PaperOut(
                 paper.getTitle(),
                 paper.getAuthor(),
                 paper.getYear(),
                 paper.getAbs(),
                 paper.getKeywords(),
-                LocalDateTime.ofInstant(now, ZoneId.systemDefault())
+                format.parse(now)
+//                LocalDateTime.ofInstant(now, ZoneId.systemDefault())
         );
     }
 
@@ -112,11 +123,11 @@ public class PaperOut implements Serializable  {
         this.keywords = keywords;
     }
 
-    public LocalDateTime getDecisionMade() {
+    public Date getDecisionMade() {
         return decisionMade;
     }
 
-    public void setDecisionMade(LocalDateTime decisionMade) {
+    public void setDecisionMade(Date decisionMade) {
         this.decisionMade = decisionMade;
     }
 

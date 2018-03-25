@@ -17,6 +17,12 @@ import java.util.List;
  */
 public class CsvParse {
 
+    private static final String[] OUTPUT_OPTIONS = {
+            "results_",
+            "discarded_",
+            ".csv"
+    };
+
     public static List<Paper> getPapers(String file) throws IllegalStateException {
         BeanListProcessor<Paper> rowProcessor = new BeanListProcessor<>(Paper.class);
         CsvParserSettings parserSettings = new CsvParserSettings();
@@ -33,8 +39,23 @@ public class CsvParse {
         return rowProcessor.getBeans();
     }
 
-    public static void resultsOut(List<PaperOut> papers, String orgFileName) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("results_" + orgFileName + ".csv"));
+    public static void resultsOut(List<PaperOut> papers, String orgFileName, boolean isDiscarded) throws IOException {
+        BufferedWriter bufferedWriter;
+
+        if (isDiscarded) {
+            bufferedWriter = new BufferedWriter(new FileWriter(
+                    OUTPUT_OPTIONS[1] +
+                            orgFileName +
+                            OUTPUT_OPTIONS[2])
+            );
+        }
+        else {
+            bufferedWriter = new BufferedWriter(new FileWriter(
+                    OUTPUT_OPTIONS[0] +
+                            orgFileName +
+                            OUTPUT_OPTIONS[2])
+            );
+        }
 
         CsvWriterSettings writerSettings = new CsvWriterSettings();
         writerSettings.setRowWriterProcessor(new BeanWriterProcessor<>(PaperOut.class));
@@ -50,15 +71,24 @@ public class CsvParse {
         writer.close();
     }
 
-    public static List<PaperOut> getPreviouslySaved(String orgFileName) throws IllegalStateException {
+    public static List<PaperOut> getPreviouslySaved(String orgFileName, boolean isDiscarded) throws IllegalStateException {
         BeanListProcessor<PaperOut> rowProcessor = new BeanListProcessor<>(PaperOut.class);
         CsvParserSettings parserSettings = new CsvParserSettings();
         parserSettings.setProcessor(rowProcessor);
         parserSettings.setHeaderExtractionEnabled(true);
 
+//        rowProcessor.convertFields(new DateConversion("yyyy-MM-dd HH:mm")).set("decisionMade");
+        rowProcessor.convertFields(new DateConversion("yyyy-MM-dd HH:mm"));
+//        rowProcessor.convertFields(Conversions.toDate("yyyy-MM-dd HH:mm")).set("decisionMade");
+
         CsvParser parser = new CsvParser(parserSettings);
         try {
-            parser.parse(new InputStreamReader(new FileInputStream("results_" + orgFileName + ".csv")));
+            if (isDiscarded) {
+                parser.parse(new InputStreamReader(new FileInputStream(OUTPUT_OPTIONS[1] + orgFileName + OUTPUT_OPTIONS[2])));
+            }
+            else {
+                parser.parse(new InputStreamReader(new FileInputStream(OUTPUT_OPTIONS[0] + orgFileName + OUTPUT_OPTIONS[2])));
+            }
         } catch (FileNotFoundException e) {
             throw new IllegalStateException("Unable to read input", e);
         }

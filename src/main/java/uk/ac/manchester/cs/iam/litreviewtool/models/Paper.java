@@ -27,7 +27,13 @@ public class Paper implements Serializable {
     }
 
     public static Paper valueOf(PaperOut paper) {
-        return null;
+        return new Paper(
+                paper.getTitle(),
+                paper.getAuthor(),
+                paper.getYear(),
+                paper.getAbs(),
+                paper.getKeywords()
+        );
     }
 
     @Override
@@ -43,19 +49,13 @@ public class Paper implements Serializable {
         Paper paper = (Paper) o;
 
         if (!title.equals(paper.title)) return false;
-        if (!author.equals(paper.author)) return false;
-        if (!year.equals(paper.year)) return false;
-        if (!abs.equals(paper.abs)) return false;
-        return keywords.equals(paper.keywords);
+        return author.equals(paper.author);
     }
 
     @Override
     public int hashCode() {
         int result = title.hashCode();
         result = 31 * result + author.hashCode();
-        result = 31 * result + year.hashCode();
-        result = 31 * result + abs.hashCode();
-        result = 31 * result + keywords.hashCode();
         return result;
     }
 

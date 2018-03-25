@@ -77,9 +77,7 @@ public class CsvParse {
         parserSettings.setProcessor(rowProcessor);
         parserSettings.setHeaderExtractionEnabled(true);
 
-//        rowProcessor.convertFields(new DateConversion("yyyy-MM-dd HH:mm")).set("decisionMade");
         rowProcessor.convertFields(new DateConversion("yyyy-MM-dd HH:mm"));
-//        rowProcessor.convertFields(Conversions.toDate("yyyy-MM-dd HH:mm")).set("decisionMade");
 
         CsvParser parser = new CsvParser(parserSettings);
         try {

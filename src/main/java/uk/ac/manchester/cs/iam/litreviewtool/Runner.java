@@ -63,7 +63,6 @@ class Runner {
 
             int indexSaved = papers.indexOf(lastSaved);
             int indexDiscarded = papers.indexOf(lastDiscarded);
-            System.out.println("Saved Index: " + indexSaved + ", Discarded Index: " + indexDiscarded);
             if (indexSaved >= 0 || indexDiscarded >= 0) {
                 // presumption that some papers will have been saved and discarded on resumption.
                 int biggest = (indexSaved >= indexDiscarded) ? indexSaved : indexDiscarded;

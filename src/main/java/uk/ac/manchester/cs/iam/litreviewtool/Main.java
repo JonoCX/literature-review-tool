@@ -28,7 +28,7 @@ public class Main {
             CommandLine cli = parser.parse(options, args);
 
             if (cli.hasOption("help") || cli.getArgList().isEmpty()) {
-                helpFormatter.printHelp("literaturereviewtool", header, options, footer, true);
+                helpFormatter.printHelp("java -jar literature-review-tool", header, options, footer, true);
             }
 
             if (cli.hasOption("file") && !(cli.hasOption("resume"))) {

@@ -48,7 +48,6 @@ public class PaperOut implements Serializable  {
                 paper.getAbs(),
                 paper.getKeywords(),
                 format.parse(now)
-//                LocalDateTime.ofInstant(now, ZoneId.systemDefault())
         );
     }
 

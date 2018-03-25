@@ -53,8 +53,6 @@ class Runner {
             // largest becomes our starting point for the resumption.
             Paper lastSaved, lastDiscarded;
             try {
-                System.out.println(previouslySaved.get(previouslySaved.size() - 1));
-                System.out.println(previouslyDiscarded.get(previouslyDiscarded.size() - 1));
                 lastSaved = Paper.valueOf(previouslySaved.get(previouslySaved.size() - 1));
                 lastDiscarded = Paper.valueOf(previouslyDiscarded.get(previouslyDiscarded.size() - 1));
             } catch (IndexOutOfBoundsException e) {

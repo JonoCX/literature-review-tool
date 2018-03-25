@@ -48,7 +48,7 @@
     </dependencies>
 
     <build>
-        <finalName>button-click-stats</finalName>
+        <finalName>literature-review-tool</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -1,8 +1,11 @@
 package uk.ac.manchester.cs.iam.litreviewtool;
 
-import org.apache.commons.cli.*;
-import uk.ac.manchester.cs.iam.litreviewtool.csv.CsvParse;
-import uk.ac.manchester.cs.iam.litreviewtool.models.Paper;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.ParseException;
 
 import java.io.File;
 
@@ -43,6 +46,14 @@ public class Main {
 
             if (cli.hasOption("file") && cli.hasOption("resume")) {
                 // resume session
+                String fileLoc = cli.getOptionValue("file");
+
+                if (!(new File(fileLoc).isFile())) {
+                    throw new ParseException("File does not exist");
+                }
+
+                Runner run = new Runner(fileLoc, true);
+                run.run();
             }
 
         } catch (ParseException e) {
@@ -50,16 +61,5 @@ public class Main {
         } catch (Exception ee) {
             System.err.println("Something went wrong. Reason: " + ee.getMessage());
         }
-
-//        String file = "E:\\Dropbox (The University of Manchester)\\shared-phd-folder\\literature-review-data\\science-direct-data.csv";
-//        List<Paper> res = CsvParse.getPapers(file);
-//
-////        String sep = "\\";
-////        String[] val = file.split(Pattern.quote(sep));
-//
-//        List<Paper> sub = res.subList(0, 20);
-//        for (Paper p : sub)
-//            System.out.println(p.getTitle());
-
     }
 }

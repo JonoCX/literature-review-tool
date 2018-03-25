@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 /**
  * @author Jonathan Carlton
  */
-public class Runner {
+class Runner {
 
     private String file;
     private boolean isResume;
@@ -27,7 +27,6 @@ public class Runner {
     }
 
     void run() throws Exception {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("To exit, enter any 'e'");
         TimeUnit.SECONDS.sleep(3);
 

@@ -10,7 +10,7 @@ import java.time.ZoneId;
 /**
  * @author Jonathan Carlton
  */
-public class PaperOut implements Serializable {
+public class PaperOut implements Serializable  {
 
     @Parsed(field = "title") private String title;
     @Parsed(field = "authors") private String author;

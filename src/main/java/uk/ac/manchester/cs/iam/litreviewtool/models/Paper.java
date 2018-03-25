@@ -26,6 +26,10 @@ public class Paper implements Serializable {
         this.keywords = keywords;
     }
 
+    public static Paper valueOf(PaperOut paper) {
+        return null;
+    }
+
     @Override
     public String toString() {
         return title + ", " + author + ", " + year + ", " + abs + ", " + keywords;

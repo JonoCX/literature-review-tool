@@ -48,14 +48,12 @@ public class Paper implements Serializable {
 
         Paper paper = (Paper) o;
 
-        if (!title.equals(paper.title)) return false;
-        return author.equals(paper.author);
+        return title.equals(paper.title);
     }
 
     @Override
     public int hashCode() {
         int result = title.hashCode();
-        result = 31 * result + author.hashCode();
         return result;
     }
 

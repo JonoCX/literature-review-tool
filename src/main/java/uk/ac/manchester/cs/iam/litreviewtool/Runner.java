@@ -49,6 +49,8 @@ class Runner {
             List<PaperOut> previouslySaved = CsvParse.getPreviouslySaved(fileName, false);
             List<PaperOut> previouslyDiscarded = CsvParse.getPreviouslySaved(fileName, true);
 
+            System.out.println("PaperOut Saved: " + previouslySaved.get(previouslySaved.size() - 1));
+            System.out.println("PaperOut Discarded: " + previouslyDiscarded.get(previouslyDiscarded.size() - 1));
             // get the index of the last saved paper and the last discarded paper, compare them and whichever is
             // largest becomes our starting point for the resumption.
             Paper lastSaved, lastDiscarded;
@@ -58,7 +60,8 @@ class Runner {
             } catch (IndexOutOfBoundsException e) {
                 throw new LiteratureReviewException("Unable to parse the saved or discarded files.");
             }
-
+            System.out.println("Paper Last Saved: " + lastSaved);
+            System.out.println("Paper Last Discarded: " + lastDiscarded);
             int indexSaved = papers.indexOf(lastSaved);
             int indexDiscarded = papers.indexOf(lastDiscarded);
             if (indexSaved >= 0 || indexDiscarded >= 0) {

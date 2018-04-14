@@ -6,7 +6,7 @@ ready to return at a later date.
 [![Build Status](https://travis-ci.org/JonoCX/literature-review-tool.svg?branch=master)](https://travis-ci.org/JonoCX/literature-review-tool)
 
 There is an expectation that your CSV file will contain the following information about each paper; title, authors,
-year, abstract, and keywords. All named in in the same case.
+year, abstract, and keywords. These need to be headers in the exported csv file and all named in the same case.
 
 ## Installation
 
